@@ -1,17 +1,19 @@
 package piece;
 
 import main.GamePanel;
+import main.Type;
 
 public class Queen extends Piece{
     public Queen(int color, int col, int row) {
         super(color, col, row);
+        type = Type.QUEEN;
         if (color == GamePanel.WHITE)
         {
-            image = getImage("/piezas/4");
+            image = getImage("/piezas/11");
         }
         else
         {
-            image = getImage("/piezas/11");
+            image = getImage("/piezas/4");
         }
     }
     public boolean canMove(int targetCol, int targetRow)
@@ -20,7 +22,7 @@ public class Queen extends Piece{
         {
             if (targetCol == preCol || targetRow == preRow)
             {
-                if (isValidSquare(targetCol,targetRow) && pieceIsOnDiagonalLine(targetCol,targetRow) == false)
+                if (isValidSquare(targetCol,targetRow) && pieceIsOnStraightLine(targetCol,targetRow) == false)
                 {
                     return true;
                 }

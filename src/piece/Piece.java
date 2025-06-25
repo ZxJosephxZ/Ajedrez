@@ -2,6 +2,7 @@ package piece;
 
 import main.Board;
 import main.GamePanel;
+import main.Type;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +15,8 @@ public class Piece {
     public int col, row, preRow, preCol;
     public int color;
     public Piece hittingP;
-    public boolean moved;
+    public boolean moved, twoStepped;
+    public Type type;
 
     public Piece(int color, int col, int row)
     {
@@ -61,6 +63,13 @@ public class Piece {
 
     public void updatePosition()
     {
+        if (type == Type.PAWN)
+        {
+            if (Math.abs(row - preRow) == 2)
+            {
+                twoStepped = true;
+            }
+        }
         x = getX(col);
         y = getY(row);
         preCol = getCol(x);
@@ -141,7 +150,7 @@ public class Piece {
 
     public Piece getHittingP(int targetCol, int targetRow)
     {
-        for (Piece piece: GamePanel.simPieces)
+        for (Piece piece : GamePanel.simPieces)
         {
             if (piece.col == targetCol && piece.row == targetRow && piece != this)
             {
